@@ -4,9 +4,6 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  //input = object
-  var stringified = '';
-
   if (Array.isArray(obj)) {
     var arrayValues = '';
     for (var i = 0; i < obj.length; i++) {
@@ -30,7 +27,4 @@ var stringifyJSON = function(obj) {
   } else {
     return obj.toString();
   }
-
-
-
 };
