@@ -14,12 +14,14 @@ var stringifyJSON = function(obj) {
     }
     arrayValues = arrayValues.substring(0, arrayValues.length - 1); //remove the last comma
     return '[' + arrayValues + ']';
-  } else if (typeof obj !== 'boolean' && typeof obj !== 'number' && !obj) {
+  } else if ([null, Infinity, NaN, undefined, function() {}, Symbol('')].indexOf(obj) !== -1) {
     return 'null';
   } else if (typeof obj === 'object') { //i.e. it's an object but not an array
     var objectPairs = '';
     for (var key in obj) {
-      objectPairs += '"' + key + '"' + ':' + stringifyJSON(obj[key]) + ',';
+      if (['undefined', 'function', 'symbol'].indexOf(typeof obj[key]) === -1) {
+        objectPairs += '"' + key + '"' + ':' + stringifyJSON(obj[key]) + ',';
+      }
     }
     objectPairs = objectPairs.substring(0, objectPairs.length - 1); //remove the last comma
     return '{' + objectPairs + '}';
