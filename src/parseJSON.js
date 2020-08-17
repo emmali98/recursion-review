@@ -42,7 +42,19 @@ var nextChar = function (string, stopChar) {
   return -1;
 };
 
-var parseArray;
+var parseArray = function(string) {
+  if (string === '') {
+    return [];
+  } else if (nextChar(string, ',') === -1) {
+    return parseElement(string);
+  } else {
+    return parseElement(string.substring(0, nextChar(string, ',')).trim()).concat(parseArray(string.substring(nextChar(string, ',') + 1).trim()));
+  }
+};
+
+var parseElement = function(string) {
+  return [parseJSON(string)];
+};
 
 var parseObject = function(string) { //input = string with the outer braces removed
   var obj = {};
@@ -68,8 +80,6 @@ var parsePair = function(string) {
   pair[key] = value;
   return pair;
 };
-
-//var parseElements;
 
 var parseValue = function(string) {
   //if it has quotation marks then it's a string
