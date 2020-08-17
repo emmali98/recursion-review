@@ -27,7 +27,7 @@ var stringifyJSON = function(obj) {
     return '{' + objectPairs + '}';
   } else if (typeof obj === 'string') {
     return '"' + obj + '"';
-  } else { //more else ifs may be needed
+  } else {
     return obj.toString();
   }
 
